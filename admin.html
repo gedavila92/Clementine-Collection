@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin | Clementine Collection</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="admin-shell">
+      <div class="admin-topbar">
+        <a href="index.html" aria-label="Volver al sitio">
+          <img src="logo-clementine-wide.png" alt="Clementine Collection">
+        </a>
+        <div class="admin-actions">
+          <a class="admin-button" href="index.html">Ver tienda</a>
+          <button class="admin-button hidden" type="button" id="logoutButton">Cerrar sesion</button>
+        </div>
+      </div>
+
+      <section class="admin-card" id="loginPanel">
+        <h1>Acceso admin</h1>
+        <form class="admin-form" id="loginForm">
+          <label>
+            Correo
+            <input type="email" id="adminEmail" autocomplete="email" placeholder="admin@email.com" required>
+          </label>
+          <label>
+            Contrasena
+            <input type="password" id="adminPassword" autocomplete="current-password" placeholder="Ingresa tu contrasena" required>
+          </label>
+          <button class="admin-button" type="submit">Entrar</button>
+          <p id="loginMessage"></p>
+        </form>
+      </section>
+
+      <section class="admin-panel hidden" id="dashboardPanel">
+        <div class="admin-card admin-wide">
+          <div class="admin-section-head">
+            <div>
+              <p class="eyebrow">Insights</p>
+              <h2>Resumen de ventas</h2>
+            </div>
+            <p id="insightsRange">Datos historicos registrados manualmente.</p>
+          </div>
+
+          <div class="insights-grid" id="insightsGrid">
+            <div class="empty-state">Cargando metricas...</div>
+          </div>
+
+          <div class="analytics-grid">
+            <div>
+              <h3>Ventas por categoria</h3>
+              <div class="category-breakdown" id="categoryBreakdown"></div>
+            </div>
+            <div>
+              <h3>Productos mas vendidos</h3>
+              <div class="top-products" id="topProducts"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h1>Registrar venta</h1>
+          <form class="admin-form" id="saleForm">
+            <label>
+              Producto vendido
+              <select id="saleProduct" required></select>
+            </label>
+
+            <label>
+              Cantidad
+              <input type="number" id="saleQuantity" min="1" value="1" required>
+            </label>
+
+            <label>
+              Precio unitario
+              <input type="text" id="saleUnitPrice" placeholder="Ej. $36.00" required>
+            </label>
+
+            <label>
+              Fecha de venta
+              <input type="date" id="saleDate" required>
+            </label>
+
+            <label>
+              Canal
+              <select id="saleChannel">
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Web">Web</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
+
+            <label>
+              Nota
+              <textarea id="saleNotes" placeholder="Ej. Cliente pidio empaque para regalo"></textarea>
+            </label>
+
+            <button class="admin-button" type="submit">Registrar venta</button>
+          </form>
+        </div>
+
+        <div class="admin-card">
+          <h2>Historial reciente</h2>
+          <div class="admin-products" id="salesHistory"></div>
+        </div>
+
+        <div class="admin-card">
+          <h1>Producto</h1>
+          <form class="admin-form" id="productForm">
+            <input type="hidden" id="productId">
+
+            <label>
+              Foto del producto
+              <input type="file" id="productImage" accept="image/*">
+            </label>
+
+            <label>
+              Nombre
+              <input type="text" id="productName" required placeholder="Ej. Collar Essencia">
+            </label>
+
+            <label>
+              Categoria
+              <select id="productType" required>
+                <option value="Set">Set</option>
+                <option value="Aretes">Aretes</option>
+                <option value="Brazaletes">Brazaletes</option>
+                <option value="Collares">Collares</option>
+                <option value="Anillos">Anillos</option>
+              </select>
+            </label>
+
+            <label>
+              Precio
+              <input type="text" id="productPrice" required placeholder="Ej. $36.00">
+            </label>
+
+            <label>
+              Inventario disponible
+              <input type="number" id="productStock" min="0" value="0" required placeholder="Ej. 12">
+            </label>
+
+            <label>
+              Descripcion
+              <textarea id="productDescription" required placeholder="Descripcion breve del producto"></textarea>
+            </label>
+
+            <label>
+              Disponibilidad
+              <select id="productAvailable">
+                <option value="true">Disponible</option>
+                <option value="false">No disponible</option>
+              </select>
+            </label>
+
+            <button class="admin-button" type="submit">Guardar producto</button>
+            <button class="admin-button" type="button" id="clearForm">Nuevo producto</button>
+          </form>
+        </div>
+
+        <div class="admin-card">
+          <h2>Catalogo cargado</h2>
+          <div class="admin-products" id="adminProducts"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>
